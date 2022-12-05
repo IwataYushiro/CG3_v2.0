@@ -13,12 +13,14 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	delete spriteBG;
-	delete objSkydome;
+	//delete objSkydome;
 	delete objGround;
 	delete objFighter;
-	delete modelSkydome;
+	delete objSphere;
+	//delete modelSkydome;
 	delete modelGround;
 	delete modelFighter;
+	delete modelSphere;
 	delete camera;
 }
 
@@ -52,21 +54,21 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	// 背景スプライト生成
 	spriteBG = Sprite::Create(1, { 0.0f,0.0f });
 	// 3Dオブジェクト生成
-	objSkydome = Object3d::Create();
-	objGround = Object3d::Create();
+	//objSkydome = Object3d::Create();
+	//objGround = Object3d::Create();
 	objFighter = Object3d::Create();
 	objSphere = Object3d::Create();
 
 	// テクスチャ2番に読み込み
 	Sprite::LoadTexture(2, L"Resources/texture.png");
 
-	modelSkydome = Model::CreateFromOBJ("skydome");
-	modelGround = Model::CreateFromOBJ("ground");
+	//modelSkydome = Model::CreateFromOBJ("skydome");
+	//modelGround = Model::CreateFromOBJ("ground");
 	modelFighter = Model::CreateFromOBJ("chr_sword");
 	modelSphere = Model::CreateFromOBJ("sphere");
 
-	objSkydome->SetModel(modelSkydome);
-	objGround->SetModel(modelGround);
+	//objSkydome->SetModel(modelSkydome);
+	//objGround->SetModel(modelGround);
 	objFighter->SetModel(modelFighter);
 	objSphere->SetModel(modelSphere);
 
@@ -78,8 +80,8 @@ void GameScene::Update()
 {
 	camera->Update();
 
-	objSkydome->Update();
-	objGround->Update();
+	//objSkydome->Update();
+	//objGround->Update();
 	objFighter->Update();
 	objSphere->Update();
 
@@ -114,8 +116,8 @@ void GameScene::Draw()
 	Object3d::PreDraw(cmdList);
 
 	// 3Dオブクジェクトの描画
-	objSkydome->Draw();
-	objGround->Draw();
+	//objSkydome->Draw();
+	//objGround->Draw();
 	objFighter->Draw();
 	objSphere->Draw();
 
