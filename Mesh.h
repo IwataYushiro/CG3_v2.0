@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <d3d12.h>
 #include <d3dx12.h>
+#include <unordered_map>
 #include <vector>
 #include <wrl.h>
 
@@ -67,10 +68,23 @@ class Mesh {
 	void AddIndex(unsigned short index);
 
 	/// <summary>
+	/// エッジ平滑化データの追加
+	/// </summary>
+	/// <param name="indexPosition">座標インデックス</param>
+	/// <param name="indexVertex">頂点インデックス</param>
+	void AddSmoothData(unsigned short indexPosition,unsigned short indexVertex);
+
+	/// <summary>
 	/// マテリアルの取得
 	/// </summary>
 	/// <returns>マテリアル</returns>
 	Material* GetMaterial() { return material; }
+
+	/// <summary>
+	/// 頂点データの数を取得
+	/// </summary>
+	/// <returns>頂点データ数</returns>
+	inline size_t GetVertexCount() { return vertices.size(); }
 
 	/// <summary>
 	/// マテリアルの割り当て
@@ -122,4 +136,6 @@ class Mesh {
 	VertexPosNormalUv* vertMap = nullptr;
 	// インデックスバッファのマップ
 	unsigned short* indexMap = nullptr;
+	//頂点法線スムージング用データ
+	std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData;
 };
