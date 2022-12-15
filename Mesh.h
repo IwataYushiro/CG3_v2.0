@@ -73,7 +73,12 @@ class Mesh {
 	/// <param name="indexPosition">座標インデックス</param>
 	/// <param name="indexVertex">頂点インデックス</param>
 	void AddSmoothData(unsigned short indexPosition,unsigned short indexVertex);
-
+	
+	/// <summary>
+	/// 平滑化された頂点法線の計算
+	/// </summary>
+	void CalculateSmoothedVertexNormals();
+	
 	/// <summary>
 	/// マテリアルの取得
 	/// </summary>
@@ -85,6 +90,8 @@ class Mesh {
 	/// </summary>
 	/// <returns>頂点データ数</returns>
 	inline size_t GetVertexCount() { return vertices.size(); }
+	
+	
 
 	/// <summary>
 	/// マテリアルの割り当て
