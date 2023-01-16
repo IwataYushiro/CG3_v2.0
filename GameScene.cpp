@@ -80,6 +80,11 @@ void GameScene::Update()
 {
 	camera->Update();
 
+	//オブジェクト回転
+	XMFLOAT3 rot = objSphere->GetRotation();
+	rot.y += 1.0f;
+	objSphere->SetRotation(rot);
+	objFighter->SetRotation(rot);
 	//objSkydome->Update();
 	//objGround->Update();
 	objFighter->Update();

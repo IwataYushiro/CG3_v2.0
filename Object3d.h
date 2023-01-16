@@ -106,6 +106,11 @@ public: // メンバ関数
 	/// </summary>
 	/// <returns>座標</returns>
 	const XMFLOAT3& GetPosition() { return position; }
+	/// <summary>
+	/// 回転角の取得
+	/// </summary>
+	/// <returns>回転角</returns>
+	const XMFLOAT3& GetRotation() { return rotation; }
 
 	/// <summary>
 	/// 座標の設定
