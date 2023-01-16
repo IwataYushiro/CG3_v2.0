@@ -141,10 +141,11 @@ void Object3d::CreateGraphicsPipeline() {
 	descRangeSRV.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0); // t0 レジスタ
 
 	// ルートパラメータ
-	CD3DX12_ROOT_PARAMETER rootparams[3];
+	CD3DX12_ROOT_PARAMETER rootparams[4];
 	rootparams[0].InitAsConstantBufferView(0, 0, D3D12_SHADER_VISIBILITY_ALL);
 	rootparams[1].InitAsConstantBufferView(1, 0, D3D12_SHADER_VISIBILITY_ALL);
 	rootparams[2].InitAsDescriptorTable(1, &descRangeSRV, D3D12_SHADER_VISIBILITY_ALL);
+	rootparams[3].InitAsConstantBufferView(2, 0, D3D12_SHADER_VISIBILITY_ALL);
 
 	// スタティックサンプラー
 	CD3DX12_STATIC_SAMPLER_DESC samplerDesc = CD3DX12_STATIC_SAMPLER_DESC(0);
@@ -270,7 +271,6 @@ void Object3d::Update() {
 	}
 
 	// 定数バッファへデータ転送
-	ConstBufferDataB0* constMap = nullptr;
 	result = constBuffB0->Map(0, nullptr, (void**)constMap);
 	constMap->viewproj = matViewProjection;
 	constMap->world = matWorld;
@@ -294,7 +294,8 @@ void Object3d::Draw() {
 	sCommandList->SetGraphicsRootSignature(pipelineSet.rootsignature.Get());
 	// 定数バッファビューをセット
 	sCommandList->SetGraphicsRootConstantBufferView(0, constBuffB0->GetGPUVirtualAddress());
-
+	//ライト描画
+	light_->Draw(sCommandList, 3);
 	// モデル描画
 	model->Draw(sCommandList);
 }
