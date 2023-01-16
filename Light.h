@@ -12,6 +12,7 @@ private: // エイリアス
 	using XMFLOAT2 = DirectX::XMFLOAT2;
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
+	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 
 public://サブクラス
@@ -22,9 +23,12 @@ public://サブクラス
 		XMFLOAT3 lightColor;	//ライトの色
 	};
 
-public:
+public://静的メンバ関数
 	//静的初期化
 	static void StaticInitialize(ID3D12Device* device);
+
+	//インスタンス生成
+	static Light* Create();
 
 private://静的メンバ変数
 	//デバイス
@@ -43,6 +47,20 @@ private://メンバ変数
 public://メンバ関数
 	//初期化
 	void Initialize();
+	
+	//更新
+	void Update();
 
+	//描画
+	void Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParameterIndex);
+
+	//定数バッファ転送
+	void TransferConstBuffer();
+
+	//ライト方向のセット
+	void SetLightDir(const XMVECTOR& lightdir);
+
+	//ライト色のセット
+	void SetLightColor(const XMFLOAT3& lightcolor);
 };
 
