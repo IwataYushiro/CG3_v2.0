@@ -18,6 +18,7 @@ ID3D12Device* Object3d::device = nullptr;
 ID3D12GraphicsCommandList* Object3d::sCommandList = nullptr;
 Object3d::PipelineSet Object3d::pipelineSet;
 Camera* Object3d::sCamera_ = nullptr;
+Light* Object3d::light_ = nullptr;
 
 void Object3d::StaticInitialize(ID3D12Device* device, Camera* camera) {
 	// nullptrチェック
@@ -232,6 +233,7 @@ bool Object3d::Initialize() {
 void Object3d::Update() {
 	assert(sCamera_);
 
+	HRESULT result;
 	XMMATRIX matScale, matRot, matTrans;
 
 	// スケール、回転、平行移動行列の計算
@@ -259,6 +261,7 @@ void Object3d::Update() {
 	}
 
 	const XMMATRIX& matViewProjection = sCamera_->GetViewProjectionMatrix();
+	const XMFLOAT3& cameraPos = sCamera_->GetEye();
 
 	// 親オブジェクトがあれば
 	if (parent != nullptr) {
@@ -267,7 +270,12 @@ void Object3d::Update() {
 	}
 
 	// 定数バッファへデータ転送
-	constMap->mat = matWorld * matViewProjection; // 行列の合成
+	ConstBufferDataB0* constMap = nullptr;
+	result = constBuffB0->Map(0, nullptr, (void**)constMap);
+	constMap->viewproj = matViewProjection;
+	constMap->world = matWorld;
+	constMap->cameraPos = cameraPos;
+	constBuffB0->Unmap(0, nullptr);
 }
 
 void Object3d::Draw() {
