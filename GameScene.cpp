@@ -14,11 +14,11 @@ GameScene::~GameScene()
 {
 	delete spriteBG;
 	//delete objSkydome;
-	delete objGround;
+	//delete objGround;
 	delete objFighter;
 	delete objSphere;
 	//delete modelSkydome;
-	delete modelGround;
+	//delete modelGround;
 	delete modelFighter;
 	delete modelSphere;
 	delete camera;
@@ -88,8 +88,9 @@ void GameScene::Update()
 {
 	//カメラ
 	camera->Update();
-	//ライト
-	light->Update();
+	
+	LightUpdate();
+	
 
 	//オブジェクト回転
 	XMFLOAT3 rot = objSphere->GetRotation();
@@ -104,6 +105,44 @@ void GameScene::Update()
 	debugText.Print("AD: move camera LeftRight", 50, 50, 1.0f);
 	debugText.Print("WS: move camera UpDown", 50, 70, 1.0f);
 	debugText.Print("ARROW: move camera FrontBack", 50, 90, 1.0f);
+}
+
+void GameScene::LightUpdate()
+{
+	//光線方向初期値					上	奥
+	static XMVECTOR lightdir = { 0.0f,1.0f,5.0f,0.0f };
+
+	if (input->PushKey(DIK_W)) { lightdir.m128_f32[1] += 1.0f; }
+	else if(input->PushKey(DIK_S)) { lightdir.m128_f32[1] -= 1.0f; }
+	if (input->PushKey(DIK_D)) { lightdir.m128_f32[0] += 1.0f; }
+	else if (input->PushKey(DIK_A)) { lightdir.m128_f32[0] -= 1.0f; }
+
+	light->SetLightDir(lightdir);
+	light->TransferConstBuffer();
+	//ライト光線座標
+	std::ostringstream debugstr;
+	debugstr << "lightDirVector("
+		<< std::fixed << std::setprecision(2)
+		<< lightdir.m128_f32[0] << ","
+		<< lightdir.m128_f32[1] << ","
+		<< lightdir.m128_f32[2] << ")";
+	debugText.Print(debugstr.str(), 50, 150, 1.0f);
+
+	//カメラ視点座標
+	debugstr.str("");
+	debugstr.clear();
+
+	const XMFLOAT3& cameraPos = camera->GetEye();
+	debugstr << "CameraPos("
+		<< std::fixed << std::setprecision(2)
+		<< cameraPos.x << ","
+		<< cameraPos.y << ","
+		<< cameraPos.z << ")";
+	debugText.Print(debugstr.str(), 50, 170, 1.0f);
+
+	//ライト
+	light->Update();
+
 }
 
 void GameScene::Draw()

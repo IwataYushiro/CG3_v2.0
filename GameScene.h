@@ -46,6 +46,9 @@ class GameScene {
 	/// </summary>
 	void Update();
 
+	//ライトの更新
+	void LightUpdate();
+	
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -63,13 +66,13 @@ class GameScene {
 	/// </summary>
 	Sprite* spriteBG = nullptr;
 
-	Model* modelSkydome = nullptr;
-	Model* modelGround = nullptr;
+	/*Model* modelSkydome = nullptr;
+	Model* modelGround = nullptr;*/
 	Model* modelFighter = nullptr;
 	Model* modelSphere = nullptr;
 
-	Object3d* objSkydome = nullptr;
-	Object3d* objGround = nullptr;
+	/*Object3d* objSkydome = nullptr;
+	Object3d* objGround = nullptr;*/
 	Object3d* objFighter = nullptr;
 	Object3d* objSphere = nullptr;
 
