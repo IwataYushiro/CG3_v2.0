@@ -3,7 +3,7 @@
 #include <DirectXMath.h>
 #include <d3dx12.h>
 
-class Light
+class DirectionalLight
 {
 private: // エイリアス
 	// Microsoft::WRL::を省略
@@ -28,7 +28,7 @@ public://静的メンバ関数
 	static void StaticInitialize(ID3D12Device* device);
 
 	//インスタンス生成
-	static Light* Create();
+	static DirectionalLight* Create();
 
 private://静的メンバ変数
 	//デバイス
