@@ -21,6 +21,7 @@ public://サブクラス
 	{
 		XMVECTOR lightV;		//ライトへの方向を表すベクトル
 		XMFLOAT3 lightColor;	//ライトの色
+		unsigned int active;
 	};
 
 public://静的メンバ関数
@@ -43,6 +44,8 @@ private://メンバ変数
 	XMFLOAT3 lightColor = { 1.0f,1.0f,1.0f };
 	//ダーティフラグ
 	bool dirty = false;
+	//有効フラグ
+	bool active_ = false;
 
 public://メンバ関数
 	//初期化
@@ -62,5 +65,10 @@ public://メンバ関数
 
 	//ライト色のセット
 	void SetLightColor(const XMFLOAT3& lightcolor);
+
+	//有効フラグのセット
+	inline void SetActive(bool active) { this->active_ = active; }
+	//有効かどうか
+	inline bool isActive() { return active_; }
 };
 
