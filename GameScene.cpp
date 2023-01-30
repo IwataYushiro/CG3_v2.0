@@ -118,7 +118,6 @@ void GameScene::LightUpdate()
 	else if (input->PushKey(DIK_A)) { lightdir.m128_f32[0] -= 1.0f; }
 
 	light->SetLightDir(lightdir);
-	light->TransferConstBuffer();
 	//ライト光線座標
 	std::ostringstream debugstr;
 	debugstr << "lightDirVector("

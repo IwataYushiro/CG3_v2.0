@@ -91,7 +91,7 @@ void Light::TransferConstBuffer()
 void Light::SetLightDir(const XMVECTOR& lightdir)
 {
 	//³‹K‰»‚µ‚ÄƒZƒbƒg
-	this->lightDir = XMVector3Normalize(lightDir);
+	this->lightDir = XMVector3Normalize(lightdir);
 	dirty = true;
 }
 
