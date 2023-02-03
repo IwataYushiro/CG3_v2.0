@@ -22,7 +22,7 @@ GameScene::~GameScene()
 	delete modelFighter;
 	delete modelSphere;
 	delete camera;
-	delete light;
+	delete lightGroup;
 }
 
 void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
@@ -53,11 +53,9 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 	Object3d::SetCamera(camera);
 
 	//ライト生成
-	light = DirectionalLight::Create();
-	//ライト色の設定
-	light->SetLightColor({ 1.0f,1.0f,1.0f });
+	lightGroup = LightGroup::Create();
 	//3Dオブジェクトにライトをセット 
-	Object3d::SetLight(light);
+	Object3d::SetLightGroup(lightGroup);
 
 	// 背景スプライト生成
 	spriteBG = Sprite::Create(1, { 0.0f,0.0f });
@@ -108,39 +106,9 @@ void GameScene::Update()
 }
 
 void GameScene::LightUpdate()
-{
-	//光線方向初期値					上	奥
-	static XMVECTOR lightdir = { 0.0f,1.0f,5.0f,0.0f };
-
-	if (input->PushKey(DIK_W)) { lightdir.m128_f32[1] += 1.0f; }
-	else if(input->PushKey(DIK_S)) { lightdir.m128_f32[1] -= 1.0f; }
-	if (input->PushKey(DIK_D)) { lightdir.m128_f32[0] += 1.0f; }
-	else if (input->PushKey(DIK_A)) { lightdir.m128_f32[0] -= 1.0f; }
-
-	light->SetLightDir(lightdir);
-	//ライト光線座標
-	std::ostringstream debugstr;
-	debugstr << "lightDirVector("
-		<< std::fixed << std::setprecision(2)
-		<< lightdir.m128_f32[0] << ","
-		<< lightdir.m128_f32[1] << ","
-		<< lightdir.m128_f32[2] << ")";
-	debugText.Print(debugstr.str(), 50, 150, 1.0f);
-
-	//カメラ視点座標
-	debugstr.str("");
-	debugstr.clear();
-
-	const XMFLOAT3& cameraPos = camera->GetEye();
-	debugstr << "CameraPos("
-		<< std::fixed << std::setprecision(2)
-		<< cameraPos.x << ","
-		<< cameraPos.y << ","
-		<< cameraPos.z << ")";
-	debugText.Print(debugstr.str(), 50, 170, 1.0f);
-
+{	
 	//ライト
-	light->Update();
+	lightGroup->Update();
 
 }
 

@@ -69,7 +69,7 @@ public: // 静的メンバ関数
 	/// ライトのセット
 	/// </summary>
 	/// <param name="camera">ライト</param>
-	static void SetLight(LightGroup* light) { lightGroup_ = light; }
+	static void SetLightGroup(LightGroup* light) { lightGroup_ = light; }
 
 	/// <summary>
 	/// 描画前処理

@@ -4,7 +4,7 @@
 #include "DebugText.h"
 #include "DirectXCommon.h"
 #include "Input.h"
-#include "DirectionalLight.h"
+#include "LightGroup.h"
 #include "Object3d.h"
 #include "Sprite.h"
 #include <DirectXMath.h>
@@ -59,7 +59,7 @@ class GameScene {
 	Input* input = nullptr;
 	DebugText debugText;
 	DebugCamera* camera = nullptr;
-	DirectionalLight* light = nullptr;
+	LightGroup* lightGroup = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用
