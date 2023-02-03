@@ -16,6 +16,16 @@ void LightGroup::StaticInitialize(ID3D12Device* device)
 	LightGroup::device = device;
 }
 
+LightGroup* LightGroup::Create()
+{
+	//3Dオブジェクトのインスタンスを生成
+	LightGroup* instance = new LightGroup();
+	//初期化
+	instance->Initialize();
+	//生成したインスタンスを返す
+	return instance;
+}
+
 void LightGroup::Initialize()
 {
 	HRESULT result;
@@ -47,6 +57,22 @@ void LightGroup::Initialize()
 
 	//定数バッファへデータ転送
 	TransferConstBuffer();
+}
+
+void LightGroup::Update()
+{
+	//値の更新があった時だけ定数バッファに転送
+	if (dirty)
+	{
+		TransferConstBuffer();
+		dirty = false;
+	}
+}
+
+void LightGroup::Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParameterIndex)
+{
+	//定数バッファビューをセット
+	cmdList->SetGraphicsRootConstantBufferView(rootParameterIndex, constBuff->GetGPUVirtualAddress());
 }
 
 void LightGroup::TransferConstBuffer()
