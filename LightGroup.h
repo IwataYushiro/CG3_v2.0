@@ -52,5 +52,13 @@ public://メンバ関数
 	void Initialize();
 	//定数バッファ転送
 	void TransferConstBuffer();
+	//環境光のライト色をセット
+	void SetAmbientColor(const XMFLOAT3& color);
+	//平行光源の有効フラグのセット
+	void SetDirLightActive(int index, bool active);
+	//平行光源のライト方向のセット
+	void SetDirLightDir(int index, const XMVECTOR& lightdir);
+	//平行光源のライト色のセット
+	void SetDirLightColor(int index, const XMFLOAT3& lightcolor);
 };
 

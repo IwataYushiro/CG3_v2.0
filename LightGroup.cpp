@@ -74,3 +74,29 @@ void LightGroup::TransferConstBuffer()
 		constBuff->Unmap(0, nullptr);
 	}
 }
+
+void LightGroup::SetAmbientColor(const XMFLOAT3& color)
+{
+	ambientColor = color;
+	dirty = true;
+}
+
+void LightGroup::SetDirLightActive(int index, bool active)
+{
+	assert(0 <= index && index < DirLightNum);
+	dirLights[index].SetActive(active);
+}
+
+void LightGroup::SetDirLightDir(int index, const XMVECTOR& lightdir)
+{
+	assert(0 <= index && index < DirLightNum);
+	dirLights[index].SetLightDir(lightdir);
+	dirty = true;
+}
+
+void LightGroup::SetDirLightColor(int index, const XMFLOAT3& lightcolor)
+{
+	assert(0 <= index && index < DirLightNum);
+	dirLights[index].SetLightColor(lightcolor);
+	dirty = true;
+}
