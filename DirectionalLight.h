@@ -62,9 +62,11 @@ public://メンバ関数
 
 	//ライト方向のセット
 	void SetLightDir(const XMVECTOR& lightdir);
+	const XMVECTOR& GetLightDir() { return lightDir; }
 
 	//ライト色のセット
 	void SetLightColor(const XMFLOAT3& lightcolor);
+	const XMFLOAT3& GetLightColor() { return lightColor; }
 
 	//有効フラグのセット
 	inline void SetActive(bool active) { this->active_ = active; }

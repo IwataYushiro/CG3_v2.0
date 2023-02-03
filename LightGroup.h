@@ -34,6 +34,23 @@ private://静的メンバ変数
 	static ID3D12Device* device;
 
 public://静的メンバ関数
+	//静的初期化
+	static void StaticInitialize(ID3D12Device* device);
 
+private://メンバ変数
+	//定数バッファ
+	ComPtr<ID3D12Resource> constBuff;
+	//環境光の色
+	XMFLOAT3 ambientColor = { 1.0f,1.0f,1.0f };
+	//平行光源の配列
+	DirectionalLight dirLights[DirLightNum];
+	//ダーティフラグ
+	bool dirty = false;
+
+public://メンバ関数
+	//初期化
+	void Initialize();
+	//定数バッファ転送
+	void TransferConstBuffer();
 };
 
