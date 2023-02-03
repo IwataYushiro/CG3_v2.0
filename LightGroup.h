@@ -52,6 +52,9 @@ public://メンバ関数
 	void Initialize();
 	//定数バッファ転送
 	void TransferConstBuffer();
+	//標準のライト設定
+	void DefaultLightSetting();
+	
 	//環境光のライト色をセット
 	void SetAmbientColor(const XMFLOAT3& color);
 	//平行光源の有効フラグのセット

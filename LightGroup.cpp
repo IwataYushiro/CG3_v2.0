@@ -20,6 +20,9 @@ void LightGroup::Initialize()
 {
 	HRESULT result;
 
+	//標準のライト設定
+	DefaultLightSetting();
+	//ヒープ設定
 	D3D12_HEAP_PROPERTIES cbHeapProp{};		//ヒープ設定
 	cbHeapProp.Type = D3D12_HEAP_TYPE_UPLOAD; //GPUへの転送用
 	//リソース設定
@@ -73,6 +76,21 @@ void LightGroup::TransferConstBuffer()
 		}
 		constBuff->Unmap(0, nullptr);
 	}
+}
+
+void LightGroup::DefaultLightSetting()
+{
+	dirLights[0].SetActive(true);
+	dirLights[0].SetLightColor({ 1.0f,1.0f,1.0f });
+	dirLights[0].SetLightDir({ 0.0f,-1.0f,0.0f,0.0f });
+
+	dirLights[1].SetActive(true);
+	dirLights[1].SetLightColor({ 1.0f,1.0f,1.0f });
+	dirLights[1].SetLightDir({ 0.5f,0.1f,0.2f,0.0f });
+
+	dirLights[2].SetActive(true);
+	dirLights[2].SetLightColor({ 1.0f,1.0f,1.0f });
+	dirLights[2].SetLightDir({ -0.5f,0.1f,-0.2f,0.0f });
 }
 
 void LightGroup::SetAmbientColor(const XMFLOAT3& color)
